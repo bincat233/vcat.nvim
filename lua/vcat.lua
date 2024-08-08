@@ -139,4 +139,6 @@ function M.rgb_to_hex(color)
 	return string.format("#%02x%02x%02x", color[1], color[2], color[3])
 end
 
+_G.vcat = M
+
 return M
