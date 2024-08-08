@@ -1,9 +1,10 @@
 local vcat = require("vcat")
-vim.api.nvim_create_user_command("CatObjDump", function(opts)
-	local args = vim.split(opts.args, " ")
-	local eval_args = {}
-	for _, arg in ipairs(args) do
-		table.insert(eval_args, vim.api.nvim_eval(arg))
+vim.api.nvim_create_user_command("VCatObjDump", function(opts)
+	if opts.args == "" then
+		print("Error: No object provided.")
+		return
 	end
-	vcat.obj_dump(unpack(eval_args))
+	local code = "vcat.obj_dump(" .. table.concat(opts.fargs, ",") .. ")"
+	load(code)()
+	local args = vim.split(opts.args, " ")
 end, { nargs = "*" })
